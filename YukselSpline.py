@@ -5,17 +5,6 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 
 
-"""
-Make First Attempt using Parameteric Form - 21/2
-
-Second attempt using Autoregressive (Neural Network) model - 24/2
-
-Third attempt add the concept of variance? - (26-27)/2
-
-Experiments
-"""
-
-
 # Helper Functions
 def normalize(x):
     return (x - x.mean()) / x.std()
@@ -74,15 +63,6 @@ class YukselSpline(nn.Module):
         P = torch.rand((self.num_points, self.num_dimensions))
         P = (P - P.mean()) / P.std()
         self.P = nn.Parameter(P)
-        """
-        Potential Model Layers
-        self.linear1 = nn.Linear(self.num_dimensions, 16)
-        self.linear2 = nn.Linear(16, 64)
-        self.linear3 = nn.Linear(64, 16)
-        self.linear4 = nn.linear(16, self.num_points * self.num_dimensions)
-        self.relu = nn.ReLU()
-        self.sigmoid = nn.Sigmoid()
-        """
 
     def layerPass(self, x):
         p = self.P * 1
@@ -105,7 +85,7 @@ class YukselSpline(nn.Module):
         Returns
         -------
         probs : torch.tensor
-            Probabilities in form of gaussian (Mean, Variance).
+            Predicted Positions.
 
         """
         P_new = P[:3]
@@ -137,10 +117,6 @@ class YukselSpline(nn.Module):
         t_exp = self.t_exponents.repeat((len(t_val), 1))
         t = t_val.pow(t_exp)
         f = t.matmul(self.B).matmul(p)
-        """
-        print(f"{t_val.shape=}")
-        print(f"{f.shape=}")
-        """
         return f
 
 

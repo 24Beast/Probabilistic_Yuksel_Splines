@@ -34,20 +34,6 @@ def predict(P, t_val):
     probs_1 = probs * 0
     for i in range(num_splines - 1):
         d = ((t_val * (num_splines - 1)) - i) * 0.5
-        """
-        if (i == 0):
-            choice = (0 <= d) * (d < 0.5)
-            f_curr = transformQuadSpline(P_new, d)
-            probs += choice * (np.sin(np.pi * d) ** 2) * f_curr
-            probs_1 += choice * (np.sin(np.pi * d) ** 2) * f_curr
-        elif (i==num_splines):
-            choice = (0 <= d) * (d <= 0.5)
-            P_temp = P_new
-            f_prev = transformQuadSpline(P_temp, d+0.5)
-            probs += choice * (np.sin(np.pi * d) ** 2) * f_prev
-            probs_1 += choice * (np.sin(np.pi * d) ** 2) * f_prev
-        else:
-        """
         choice = (0 <= d) * (d <= 0.5)
         probs_1 = probs_1 * (1 - choice)
         P_temp = P_new.copy()
