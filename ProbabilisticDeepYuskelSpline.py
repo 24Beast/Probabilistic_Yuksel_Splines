@@ -171,7 +171,7 @@ class YukselSpline(nn.Module):
             P_new[0] = (P_temp[0] + P_temp[2]) / 4 + P_temp[1] / 2
             P_new[2] = P[i + 3]
             P_new[1] = 2 * (P_temp[2] - (P_new[0] + P_new[2]) / 4)
-            '''
+            """
             Redefine this portion
             f_prev = self.transformSpline(P_temp, d + 0.5)
             f_curr = self.transformSpline(P_new, d)
@@ -181,7 +181,7 @@ class YukselSpline(nn.Module):
                     + ((np.sin(np.pi * d) ** 2) * f_curr)
                 )
             )
-            '''
+            """
 
         return probs
 

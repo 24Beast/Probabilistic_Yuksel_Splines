@@ -87,6 +87,7 @@ class YukselSpline(nn.Module):
         out = self.linear5(out)
         out = self.relu(out)
         out = self.linear6(out)
+        out = torch.cumsum(out, axis=1)
         return out
 
     def forward(self, x):
@@ -154,7 +155,7 @@ class YukselSpline(nn.Module):
 
 
 if __name__ == "__main__":
-    NUM_POINTS = 17
+    NUM_POINTS = 15
     NUM_EPOCHS = 10000
     NUM_SAMPLES = 200
     B_SIZE = 25
@@ -190,9 +191,9 @@ if __name__ == "__main__":
 
         avg_loss = running_loss / num_batch
         # print(f"{model.P=}")
-        if (epoch % 100 == 0):
+        if epoch % 100 == 0:
             print(f"\rCurrent Epoch {epoch}: Loss = {avg_loss}", end="")
-        if (epoch % 500 == 0):
+        if epoch % 500 == 0:
             print()
             order = torch.argsort(t)
             y_pred = model(t).detach().numpy()
